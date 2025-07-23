@@ -3,18 +3,34 @@
 {% block title %}Hello HomepageController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/mnt/Games/git-folders/Arnauw/symfony_exo2/src/Controller/HomepageController.php</code></li>
-        <li>Your template at <code>/mnt/Games/git-folders/Arnauw/symfony_exo2/templates/homepage/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="example-wrapper">
+
+        {{ dump(app.user) }}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <h1>Hello {{ app.user.email }}! ✅</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_dashboard_admin') }}">Admin Dashboard</a>
+            {% endif %}
+
+            <a href="{{ path('app_logout') }}">Logout</a>
+        {% else %}
+            <h1>Hello and welcome here! ✅</h1>
+            <a href="{{ path('app_register') }}">Register</a>
+            <a href="{{ path('app_login') }}">Login</a>
+        {% endif %}
+    </div>
 {% endblock %}
