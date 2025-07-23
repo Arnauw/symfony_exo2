@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Edit this user{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1>Update user</h1>
 
     {{ form_errors(registrationForm) }}
 
@@ -11,11 +11,7 @@
     {{ form_row(registrationForm.firstname) }}
     {{ form_row(registrationForm.lastname) }}
     {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.password, {
-        label: 'Password'
-    }) }}
-    {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn">Register</button>
+    <button type="submit" class="btn">Save</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

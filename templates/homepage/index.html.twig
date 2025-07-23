@@ -21,7 +21,7 @@
 
         {{ dump(app.user) }}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <h1>Hello {{ app.user.email }}! ✅</h1>
+            <h1>Hello {{ app.user.firstname }}! ✅</h1>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('app_dashboard_admin') }}">Admin Dashboard</a>
             {% endif %}
