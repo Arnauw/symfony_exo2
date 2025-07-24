@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UpdateFormType;
+use App\Form\AdminUpdateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ final class DashboardAdminController extends AbstractController
     {
         $user = $em->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(UpdateFormType::class, $user);
+        $form = $this->createForm(AdminUpdateFormType::class, $user);
 
         $form->handleRequest($req);
 
@@ -69,6 +69,6 @@ final class DashboardAdminController extends AbstractController
             'Your changes were saved!'
         );
 
-        return $this->redirectToRoute('admin_dashboard_admin');
+        return $this->redirectToRoute('app_dashboard_admin');
     }
 }

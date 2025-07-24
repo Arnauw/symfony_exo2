@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit this user{% endblock %}
+
+{% block body %}
+    <h1>Update user</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.firstname) }}
+    {{ form_row(registrationForm.lastname) }}
+    {{ form_row(registrationForm.email) }}
+
+    <button type="submit" class="btn">Save</button>
+    {{ form_end(registrationForm) }}
+
+    <div>
+        <a href="{{ path('app_user_profile_update_password', {'id': app.user.id}) }}" class="btn btn-warning">Change your password</a>
+        <a href="{{ path('app_user_profile_delete', {'id': app.user.id})}}" class="btn btn-danger">Delete your account (irreversible)</a>
+    </div>
+{% endblock %}

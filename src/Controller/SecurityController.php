@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
 //            return $this->redirectToRoute('app_homepage');
 //        }
 
-        // Uncomment the following lines if you want to redirect admin users to a specific admin dashboard
+//         Uncomment the following lines if you want to redirect admin users to a specific admin dashboard
 //        if ($this->getUser()->getRoles() === ['ROLE_ADMIN']) {
 //            return $this->redirectToRoute('app_dashboard_admin');
 //        }

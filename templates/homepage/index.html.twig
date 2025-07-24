@@ -25,7 +25,7 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('app_dashboard_admin') }}">Admin Dashboard</a>
             {% endif %}
-
+            <a href="{{ path('app_user_profile', {'id': app.user.id}) }}">Profile</a>
             <a href="{{ path('app_logout') }}">Logout</a>
         {% else %}
             <h1>Hello and welcome here! ✅</h1>
