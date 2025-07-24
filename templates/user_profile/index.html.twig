@@ -25,8 +25,10 @@
         </div>
         <div class="lastname">Lastmame: {{ app.user.lastname }}</div>
         <div class="email">Email: {{ app.user.email }}</div>
+        <div class="avatar"><img src="{{ asset('imgs/avatars/' ~ app.user.imageName) }}" alt="Photo of Amine"></div>
         <div>
             <a href="{{ path('app_user_profile_update', {'id': app.user.id}) }}" class="btn btn-warning">Edit</a>
+            <a href="{{ path('app_user_profile_delete', {'id': app.user.id})}}" class="btn btn-danger">Delete your account (irreversible)</a>
         </div>
     </div>
 {% endblock %}
