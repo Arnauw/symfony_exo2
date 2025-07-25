@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\PasswordUserUpdateFormType;
+use App\Form\RegistrationFormType;
 use App\Form\UserUpdateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,7 @@ final class UserProfileController extends AbstractController
     {
         $user = $em->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(UserUpdateFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -11,6 +11,8 @@
     {{ form_row(registrationForm.firstname) }}
     {{ form_row(registrationForm.lastname) }}
     {{ form_row(registrationForm.email) }}
+    <div class="avatar"><img src="{{ asset('imgs/avatars/' ~ app.user.imageName) }}" alt="{{ app.user.firstname }}'s avatar"></div>
+    {{ form_row(registrationForm.imageFile) }}
 
     <button type="submit" class="btn btn-success">Save</button>
     {{ form_end(registrationForm) }}
