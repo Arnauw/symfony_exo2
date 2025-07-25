@@ -57,6 +57,10 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'is_registration_form' => true,
+            'is_user_update_form' => false,
+            'is_user_update_password_form' => false,
+            'is_admin_update_form' => false,
         ]);
     }
 }
