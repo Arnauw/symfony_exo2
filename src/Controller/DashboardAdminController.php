@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AdminUpdateFormType;
+use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,11 @@ final class DashboardAdminController extends AbstractController
     {
         $user = $em->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(AdminUpdateFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user, [
+            'is_user_update_form' => true,
+            'is_registration_form' => false,
+            'is_admin_update_form' => true,
+        ]);
 
         $form->handleRequest($req);
 

@@ -28,7 +28,10 @@ final class UserProfileController extends AbstractController
     {
         $user = $em->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user, [
+            'is_user_update_form' => true,
+            'is_registration_form' => false,
+        ]);
         $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,7 +57,10 @@ final class UserProfileController extends AbstractController
     {
         $user = $em->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(PasswordUserUpdateFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user, [
+            'is_user_update_password_form' => true,
+            'is_registration_form' => false,
+        ]);
         $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,9 +73,12 @@ final class UserProfileController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            // do anything else you need here, like send an email
+            $this->addFlash(
+                'notice',
+                'Your password was updated successfully!'
+            );
 
-            return $this->redirectToRoute('app_user_profile');
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('user_profile/update_password.html.twig', [

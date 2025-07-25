@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,22 +19,29 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
-        $builder
-            ->add('imageFile', VichFileType::class, [])
-            ->add('email')
-            ->add('firstname')
-            ->add('lastname');
-        if ($options['is_registration_form']) {
+        if ($options['is_registration_form'] || $options['is_user_update_form'] || $options['is_admin_update_form']) {
             $builder
-                ->add('agreeTerms', CheckboxType::class, [
-                    'mapped' => false,
-                    'constraints' => [
-                        new IsTrue([
-                            'message' => 'You should agree to our terms.',
-                        ]),
-                    ],
+                ->add('imageFile', VichFileType::class, [
+                    'required' => false,
                 ])
+                ->add('email')
+                ->add('firstname')
+                ->add('lastname');
+        }
+        if ($options['is_admin_update_form']) {
+            $builder
+                ->add('roles', ChoiceType::class, [
+                    'choices' => [
+                        'User' => 'ROLE_USER',
+                        'Admin' => 'ROLE_ADMIN',
+                    ],
+                    'expanded' => true,  // renders as checkboxes
+                    'multiple' => true,  // allows multiple selection
+                    'label' => 'Roles',
+                ]);
+        }
+        if ($options['is_registration_form'] || $options['is_user_update_password_form']) {
+            $builder
                 ->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
@@ -51,6 +58,17 @@ class RegistrationFormType extends AbstractType
                             'min' => 6,
                             'minMessage' => 'Your password should be at least {{ limit }} characters',
                             'max' => 4096,
+                        ]),
+                    ],
+                ]);
+        }
+        if ($options['is_registration_form']) {
+            $builder
+                ->add('agreeTerms', CheckboxType::class, [
+                    'mapped' => false,
+                    'constraints' => [
+                        new IsTrue([
+                            'message' => 'You should agree to our terms.',
                         ]),
                     ],
                 ]);
