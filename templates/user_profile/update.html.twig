@@ -1,23 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit this user{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
 {% block body %}
-    <h1>Update user</h1>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
 
-    {{ form_errors(registrationForm) }}
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body p-4 p-sm-5">
+                        <h1 class="card-title text-center mb-4">Update Profile</h1>
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.firstname) }}
-    {{ form_row(registrationForm.lastname) }}
-    {{ form_row(registrationForm.email) }}
-    <div class="avatar"><img src="{{ asset('imgs/avatars/' ~ app.user.imageName) }}" alt="{{ app.user.firstname }}'s avatar"></div>
-    {{ form_row(registrationForm.imageFile) }}
+                        {{ form_start(registrationForm) }}
 
-    <button type="submit" class="btn btn-success">Save</button>
-    {{ form_end(registrationForm) }}
+                        {{ form_errors(registrationForm) }}
 
-    <div>
-        <a href="{{ path('app_user_profile_update_password', {'id': app.user.id}) }}" class="btn btn-warning">Change your password</a>
+                        {{ form_row(registrationForm.firstname) }}
+                        {{ form_row(registrationForm.lastname) }}
+                        {{ form_row(registrationForm.email) }}
+
+                        <div class="row g-3 align-items-center my-3">
+                            <div class="col-md-4 text-center">
+                                <p class="mb-2 fw-bold">Current Avatar</p>
+                                <img src="{{ asset('imgs/avatars/' ~ app.user.imageName) }}" alt="{{ app.user.firstname }}'s avatar" class="profile-edit-avatar shadow-sm">
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_row(registrationForm.imageFile, {
+                                    'label': 'Upload New Avatar'
+                                }) }}
+                                <div class="form-text">Leave blank to keep your current avatar.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-success btn-lg">Save Changes</button>
+                        </div>
+
+                        {{ form_end(registrationForm) }}
+
+                        <hr class="my-4">
+
+                        <div class="text-center">
+                            <a href="{{ path('app_user_profile_update_password', {'id': app.user.id}) }}" class="btn btn-warning">Change Password</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

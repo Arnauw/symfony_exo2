@@ -3,20 +3,44 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="container my-5">
+        {# Use the grid system to center the card and control its width on different screen sizes #}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
 
-    {{ form_errors(registrationForm) }}
+                {# This is the main card component with a shadow for depth #}
+                <div class="card shadow-lg border-0 rounded-3">
+                    {# Add padding inside the card #}
+                    <div class="card-body p-4 p-sm-5">
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.firstname) }}
-    {{ form_row(registrationForm.lastname) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.imageFile) }}
-    {{ form_row(registrationForm.password, {
-        label: 'Password'
-    }) }}
-    {{ form_row(registrationForm.agreeTerms) }}
+                        <h1 class="card-title text-center mb-4">Register</h1>
 
-    <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                        {# The form_start() function will create the <form> tag #}
+                        {{ form_start(registrationForm) }}
+
+                        {# Global form errors will be rendered here, if any #}
+                        {{ form_errors(registrationForm) }}
+
+                        {#
+                        The form_row() function, combined with the Bootstrap 5 theme,
+                        will render a label, input, and error messages with the correct Bootstrap classes.
+                        #}
+                        {{ form_row(registrationForm.firstname) }}
+                        {{ form_row(registrationForm.lastname) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.imageFile) }}
+                        {{ form_row(registrationForm.password) }} {# No need to override the label here if it's set in your FormType #}
+                        {{ form_row(registrationForm.agreeTerms) }}
+
+                        {# Use d-grid for a full-width button, and add top margin #}
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

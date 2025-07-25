@@ -1,0 +1,58 @@
+<div class="container my-5">
+    <div class="bg-light rounded-3 shadow-lg">
+        <div class="card-body p-5 text-center">
+
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                {% if 'admin' in app.request.pathInfo %}
+                    <h1 class="display-4 fw-bold">Amine Dashboard</h1>
+                {% else %}
+                    <h1 class="display-4 fw-bold">Hello {{ app.user.firstname }}!</h1>
+                {% endif %}
+
+                <hr class="my-4">
+                <div class="mt-4 d-flex justify-content-evenly">
+
+                    {% if is_granted('ROLE_ADMIN') and app.current_route != 'app_dashboard_admin' %}
+                        <a href="{{ path('app_dashboard_admin') }}" class="btn btn-warning">Amine Dashboard</a>
+                    {% endif %}
+
+
+                    {% if app.current_route != 'app_homepage' %}
+                        <a href="{{ path('app_homepage') }}" class="btn btn-primary">Homepage</a>
+                    {% endif %}
+
+                    {% if app.current_route != 'app_user_profile'
+                        and app.current_route != 'app_user_profile_update'
+                        and app.current_route != 'app_user_profile_update_password' %}
+                        <a href="{{ path('app_user_profile', {'id': app.user.id}) }}"
+                           class="btn btn-primary">Profile</a>
+                    {% endif %}
+
+                    <a href="{{ path('app_logout') }}" class="btn btn-danger">Logout</a>
+                </div>
+
+            {% else %}
+
+                <h1 class="display-4 fw-bold">Hello and welcome here!</h1>
+                <p class="lead mt-3">Please log in or create an account to get started.</p>
+                <hr class="my-4">
+
+                <div class="mt-4 d-flex justify-content-evenly">
+                    {% if app.current_route != 'app_homepage' %}
+                        <a href="{{ path('app_homepage') }}" class="btn btn-primary">Homepage</a>
+                    {% endif %}
+                    {% if app.current_route != 'app_register' %}
+                        <a href="{{ path('app_register') }}" class="btn btn-primary me-2">Register</a>
+                    {% endif %}
+                    {% if app.current_route != 'app_login' %}
+                        <a href="{{ path('app_login') }}" class="btn btn-secondary">Login</a>
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>

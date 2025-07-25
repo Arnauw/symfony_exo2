@@ -1,35 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserProfileController!{% endblock %}
+{% block title %}{{ app.user.firstname }}'s Profile{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
+    <div class="container my-5">
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
 
-    <div class="example-wrapper">
-        <h1>{{ app.user.firstname }}'s Profile</h1>
+                <div class="card shadow-lg border-0 rounded-3">
 
-        <div class="name">
-            Firstname: {{ app.user.firstname }}
-        </div>
-        <div class="lastname">Lastmame: {{ app.user.lastname }}</div>
-        <div class="email">Email: {{ app.user.email }}</div>
-        <div class="avatar"><img src="{{ asset('imgs/avatars/' ~ app.user.imageName) }}" alt="Photo of Amine"></div>
-        <div>
-            <a href="{{ path('app_user_profile_update', {'id': app.user.id}) }}" class="btn btn-warning">Edit</a>
-            <a href="{{ path('app_user_profile_delete', {'id': app.user.id})}}" class="btn btn-danger">Delete your account (irreversible)</a>
+                    <div class="card-body p-5">
+                        <div class="row g-4 align-items-center">
+
+                            <div class="col-md-4 text-center">
+                                <img src="{{ asset('imgs/avatars/' ~ app.user.imageName) }}" alt="Photo of {{ app.user.firstname }}" class="profile-edit-avatar shadow-sm">
+                            </div>
+
+                            <div class="col-md-8">
+                                <h2 class="h3 fw-bold mb-1"> {{ app.user.lastname }} {{ app.user.firstname }}</h2>
+                                <p class="text-muted">{{ app.user.email }}</p>
+
+                                <hr class="my-4">
+
+                                <div class="d-flex gap-2">
+                                    <a href="{{ path('app_user_profile_update', {'id': app.user.id}) }}" class="btn btn-warning">Edit Profile</a>
+                                    <a href="{{ path('app_user_profile_delete', {'id': app.user.id}) }}" class="btn btn-danger">Delete Account</a>
+                                </div>
+                                <small class="form-text text-muted">Deleting your account is a permanent action.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
-

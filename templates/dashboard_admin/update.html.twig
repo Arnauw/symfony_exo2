@@ -1,21 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit this user{% endblock %}
+{% block title %}Edit User: {{ registrationForm.vars.value.firstname }}{% endblock %}
 
 {% block body %}
-    <h1>Update user</h1>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
 
-    {{ form_errors(registrationForm) }}
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body p-4 p-sm-5">
+                        <h1 class="card-title text-center mb-4">Edit User</h1>
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.firstname) }}
-    {{ form_row(registrationForm.lastname) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.roles) }}
+                        <h2 class="h5 text-center text-muted mb-4">{{ registrationForm.vars.value.email }}</h2>
 
-    <div class="avatar"><img src="{{ asset('imgs/avatars/' ~ registrationForm.vars.value.imageName) }}" alt="{{ registrationForm.vars.value.firstname }}'s avatar"></div>
-    {{ form_row(registrationForm.imageFile) }}
+                        {{ form_start(registrationForm) }}
 
-    <button type="submit" class="btn btn-success">Save</button>
-    {{ form_end(registrationForm) }}
+                        {{ form_errors(registrationForm) }}
+
+                        {{ form_row(registrationForm.firstname) }}
+                        {{ form_row(registrationForm.lastname) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.roles) }}
+
+                        <div class="row g-3 align-items-center my-3">
+                            <div class="col-md-4 text-center">
+                                <p class="mb-2 fw-bold">Current Avatar</p>
+                                <img src="{{ asset('imgs/avatars/' ~ registrationForm.vars.value.imageName) }}" alt="{{ registrationForm.vars.value.firstname }}'s avatar" class="profile-edit-avatar shadow-sm">
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_row(registrationForm.imageFile, {
+                                    'label': 'Upload New Avatar'
+                                }) }}
+                                <div class="form-text">Leave blank to keep the current avatar.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-success btn-lg">Save Changes</button>
+                        </div>
+
+                        {{ form_end(registrationForm) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
